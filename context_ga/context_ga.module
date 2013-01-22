@@ -1,0 +1,142 @@
+<?php
+// $Id: context_ga.module,v 1.1 2010/12/02 22:53:41 mikegfx Exp $
+/**
+ * @file context_ga.module
+ *    Adds referral url keyword conditions to Context
+ */
+
+
+/**
+* Your module should generate it's content here. This will be displayed within your module
+*/
+
+function context_ga_ctools_plugin_api($module, $api) {
+  if ($module == 'context' && $api == 'plugins') {
+    return array('version' => 3);
+  }
+}
+
+/**
+ * Make module compatible with context 3
+ * Implement hook_context_plugins().
+ */
+function context_ga_context_plugins() {
+  $plugins = array();
+  $plugins['context_condition_source'] = array(
+    'handler' => array(
+      'path' => drupal_get_path('module', 'context_ga'),
+      'file' =>  'context_condition_source.inc',
+      'class' => 'context_condition_source',
+      'parent' => 'context_condition',
+    ),
+  );
+  $plugins['context_condition_campaign'] = array(
+    'handler' => array(
+      'path' => drupal_get_path('module', 'context_ga'),
+      'file' =>  'context_condition_campaign.inc',
+      'class' => 'context_condition_campaign',
+      'parent' => 'context_condition',
+    ),
+  );
+  $plugins['context_condition_medium'] = array(
+    'handler' => array(
+      'path' => drupal_get_path('module', 'context_ga'),
+      'file' =>  'context_condition_medium.inc',
+      'class' => 'context_condition_medium',
+      'parent' => 'context_condition',
+    ),
+  );
+  $plugins['context_condition_content'] = array(
+    'handler' => array(
+      'path' => drupal_get_path('module', 'context_ga'),
+      'file' =>  'context_condition_content.inc',
+      'class' => 'context_condition_content',
+      'parent' => 'context_condition',
+    ),
+  );
+  $plugins['context_condition_term'] = array(
+    'handler' => array(
+      'path' => drupal_get_path('module', 'context_ga'),
+      'file' =>  'context_condition_term.inc',
+      'class' => 'context_condition_term',
+      'parent' => 'context_condition',
+    ),
+  );
+  $plugins['context_condition_totalvisits'] = array(
+    'handler' => array(
+      'path' => drupal_get_path('module', 'context_ga'),
+      'file' =>  'context_condition_totalvisits.inc',
+      'class' => 'context_condition_totalvisits',
+      'parent' => 'context_condition',
+    ),
+  );
+
+  return $plugins;
+}
+
+/**
+ * Make module compatible with context 3
+ * Implement hook_context_registry().
+ */
+function context_ga_context_registry() {
+  $registry['conditions'] = array(
+    'source' => array(
+      'title' => t('GA-Source'),
+      'description' => t("Select by Source"),
+      'plugin' => 'context_condition_source',
+    ),
+    'campaign' => array(
+      'title' => t('GA-Campaign'),
+      'description' => t("Select by Campaign"),
+      'plugin' => 'context_condition_campaign',
+    ),
+    'medium' => array(
+      'title' => t('GA-Medium'),
+      'description' => t("Select by Medium"),
+      'plugin' => 'context_condition_medium',
+    ),
+    'content' => array(
+      'title' => t('GA-Content'),
+      'description' => t("Select by Content"),
+      'plugin' => 'context_condition_content',
+    ),
+    'term' => array(
+      'title' => t('GA-Term'),
+      'description' => t("Select by Term"),
+      'plugin' => 'context_condition_term',
+    ),
+    'totalvisit' => array(
+      'title' => t('GA-Total Visits'),
+      'description' => t("Select by Total Visits"),
+      'plugin' => 'context_condition_totalvisits',
+    ),
+  );
+  return $registry;
+}
+
+/**
+ * Implementation of hook_context_page_reaction()
+ * adds context based on the browser keywords string.
+ */
+function context_ga_context_page_condition() {
+  if ($plugin = context_get_plugin('condition', 'source')) {
+    $plugin->execute();
+  }
+  if ($plugin = context_get_plugin('condition', 'campaign')) {
+    $plugin->execute();
+  }
+  if ($plugin = context_get_plugin('condition', 'medium')) {
+    $plugin->execute();
+  }
+  if ($plugin = context_get_plugin('condition', 'content')) {
+    $plugin->execute();
+  }
+  if ($plugin = context_get_plugin('condition', 'term')) {
+    $plugin->execute();
+  }
+  if ($plugin = context_get_plugin('condition', 'totalvisits')) {
+    $plugin->execute();
+  }
+}
+
+

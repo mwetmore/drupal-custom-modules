@@ -1,0 +1,8 @@
+name = "Context Google Analytics"
+description = "Provides conditional contexts based on values stored within the Google Analytics cookie"
+package = "Context"
+dependencies[] = context
+dependencies[] = ga_tokenizer
+dependencies[] = token
+core = 7.x
+php = 5.3
