@@ -23,6 +23,12 @@ This module source is for Drupal 7, I have a Drupal 6 version the works, and it 
 - Google Analytics  [link][http://drupal.org/project/google_analytics]
 - Google Analytics Tokenizer [link][http://drupal.org/project/ga_tokenizer]
 
+The conditions above to added to the Google Analytics token by search/media campaigns from Google, but you can create your own campaigns and place the page
+parameters where you want, and watch the traffic in GA, and then hide blocks by campaigns, or remove/show menus, skys the limit.  More details on configuring 
+Google Campaign Parameters here: [http://support.google.com/analytics/bin/answer.py?hl=en&answer=1033867][http://support.google.com/analytics/bin/answer.py?hl=en&answer=1033867]
+
+Example URL Format: http://yourdomain.com/yourpage/?utm_source=testSource&utm_medium=testMedium&utm_term=testTerm&utm_content=testContent&utm_campaign=testName
+
 
 
 
